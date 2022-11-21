@@ -1,82 +1,41 @@
 
 class Robot:
-     """
-     """
-     def __init__(self):
-          self._direction = 0
-          self._location = [0,0]
-          print("Robot online")
-          self.display_help()
+    def __init__(self):
+        self.coords = {"x" :0, "y":0, "d":0}
+        print("Robot is online")
 
-     def display_help(self):
-          print("North South East West Move ? Q")
+    def __call__(self,command):
+        if command == "turn_left":
+            self.coords["d"] = (self.coords["d"]-1)% 4
+        if command == "turn_right":
+            self.coords["d"] = (self.coords["d"]+1)% 4
+        if command == "move":            
+            if self.coords["d"] == 0:
+                self.coords["y"] += 1
+            if self.coords["d"] == 1:
+                self.coords["y"] -= 1
+            if self.coords["d"] == 2:
+                self.coords["x"] += 1
+            if self.coords["d"] == 3:
+                self.coords["x"] -= 1
+    
+    def __del__(self):
+        print("Robot is offline")
+            
 
-     def direction(self):
-          return self._direction
-         
+curiosity = Robot()
 
-     def location(self):
-          return self._location
+curiosity("turn_left")
 
+curiosity("move")
 
-     def op(self,command):
-         print(command)
-         if command == "":
-             print(direction_dict[self.direction()])
-             print(self.location())
-             self.display_help()
-         elif command in ("L","R","l","r"):
-             self.turn(command)
-         elif command in("M","m"):
-             self.move()
-         elif command in ("?"):
-             self.display_help()
-         elif command in ("Q","q"):
-             print("Robot shutting down")
-             return False
-         else:
-             print("Invalid command")
-             self.display_help()
-         return True
+curiosity("turn_right")
 
-     def move(self):
-          if direction_dict[self._direction] == "North":
-              self._location[1] += 1
-          if direction_dict[self._direction] == "South":
-              self._location[1] -= 1
-          if direction_dict[self._direction] == "East":
-              self._location[0] += 1
-          if direction_dict[self._direction] == "West":
-              self._location[0] -= 1
-          print(direction_dict[self.direction()])
-          print(self.location())
-          return
+curiosity("move")
+curiosity("move")
+curiosity("move")
+curiosity("turn_right")
+curiosity("move")
 
-     def turn(self,turn):
-          if turn == "L":
-              self._direction = (self._direction - 1) % 4
-          if turn == "R":
-              self._direction = (self._direction + 1) % 4
-          print(direction_dict[self.direction()])
-          print(self.location())
-          return
-
-
-def main():
-
-        r = Robot()
-
-        global direction_dict
-
-        robot_is_online = True
-        direction_dict = {0:"North",1:"East",2:"South",3:"West"}
-
-        print(direction_dict[r.direction()])
-        print(r.location())
-        print(direction_dict[r.direction()])
-        print(r.location())
-        while robot_is_online:
-            robot_is_online = r.op(input("> "))
-
-
-main()
+curiosity.__del__()
+print(curiosity.coords)
