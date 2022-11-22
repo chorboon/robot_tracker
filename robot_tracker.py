@@ -1,8 +1,9 @@
 
 class Robot:
-    def __init__(self):
-        self.coords = {"x" :0, "y":0, "d":0}
-        print("Robot is online")
+    def __init__(self,name):
+        self.coords = {"x" :0, "y":0, "xd":False, "yd":True}
+        print(name,"is online")
+        self.name = name
         self.help()
 
     def __call__(self,command):
@@ -23,10 +24,12 @@ class Robot:
                 self.coords["x"] -= 1
     
     def __del__(self):
-        print("Robot is offline")
+        print(self.name,"is offline")
     
     def help(self):
-        print("""Valid commands are:
+        print("""
+
+        Valid commands are:
         turn_left
         turn_right
         move
@@ -34,7 +37,7 @@ class Robot:
         
         """)
 
-curiosity = Robot()
+curiosity = Robot("Curiosity")
 
 while 1:
     command_input = input ("Please give a command to curiousity > ")
