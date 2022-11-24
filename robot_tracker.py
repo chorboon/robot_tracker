@@ -4,6 +4,12 @@ class Robot:
         self.coords = {"x" :0, "y":0, "d":0}
         print(name,"is online")
         self.name = name
+        self.command_dict = {"Q"    : "Shutdown", 
+                             "tl"   : "Turn left",
+                             "tr"   : "Turn right",
+                             "move" : "Move"
+        }
+
         self.help()
 
     def __str__(self):
@@ -14,9 +20,9 @@ class Robot:
             command = input (f"Please give a command to {self.name} > ")
             if command == "Q":
                 break
-            if command == "turn_left":
+            if command == "tl":
                 self.coords["d"] = (self.coords["d"]-1)% 4
-            if command == "turn_right":
+            if command == "tr":
                 self.coords["d"] = (self.coords["d"]+1)% 4
             if command == "move":            
                 if self.coords["d"] == 0:
@@ -32,16 +38,9 @@ class Robot:
     def __del__(self):
         print(self.name,"is offline")
     
+    
     def help(self):
-        print("""
-
-        Valid commands are:
-        turn_left
-        turn_right
-        move
-        Q
-        
-        """)
+        print(f"Valid commands are: {self.command_dict}        ")
 
 curiosity = Robot("Curiosity")
 
